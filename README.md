@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Bloodinary Logo" width="200">
+  <img src="assets/logo.png" alt="Bloodinary Logo" width="600">
 </p>
-
-[![Gem Version](https://img.shields.io/badge/gem-v1.0.0-red.svg)](https://rubygems.org/gems/bloodinary)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
 # 🩸 Bloodinary v1.0.0
+
+[![Gem Version](https://img.shields.io/badge/gem-v1.0.0-red.svg)](https://rubygems.org/gems/bloodinary)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Bloodinary** adalah alat analisis keamanan statis (*Static Analysis Security Testing* - SAST) premium untuk aplikasi Ruby. Dirancang khusus untuk mendeteksi kerentanan keamanan tingkat tinggi dengan tingkat akurasi yang lebih tajam dibandingkan alat tradisional pada framework kustom.
 
