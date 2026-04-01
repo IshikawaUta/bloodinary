@@ -2,10 +2,8 @@
   <img src="assets/logo.png" alt="Bloodinary Logo" width="200">
 </p>
 
-<center>
 [![Gem Version](https://img.shields.io/badge/gem-v1.0.0-red.svg)](https://rubygems.org/gems/bloodinary)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-</center>
 
 ---
 
