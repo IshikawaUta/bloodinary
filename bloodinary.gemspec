@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/IshikawaUta/bloodinary"
   spec.license       = "MIT"
 
-  spec.files         = Dir["{bin,lib}/**/*", "LICENSE", "README.md", "assets/logo.png"]
+  spec.files         = Dir["{bin,lib}/**/*", "LICENSE", "README.md", "assets/logo.webp"]
   spec.bindir        = "bin"
   spec.executables   = ["bloodinary"]
   spec.require_paths = ["lib"]

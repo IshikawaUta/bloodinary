@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" alt="Bloodinary Logo" width="600">
+  <img src="assets/logo.webp" alt="Bloodinary Logo" width="600">
 </p>
 
 ---
