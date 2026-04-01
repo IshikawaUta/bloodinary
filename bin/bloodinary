@@ -1,0 +1,91 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'bloodinary'
+require 'optparse'
+require 'rainbow'
+
+options = {
+  format: :text,
+  output: nil,
+  ignore_paths: [],
+  exit_on_warn: false
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Penggunaan: bloodinary [jalur] [opsi]"
+
+  opts.on("-f", "--format FORMAT", [:text, :json], "Pilih format laporan (text, json)") do |f|
+    options[:format] = f
+  end
+
+  opts.on("-o", "--output FILE", "Simpan laporan ke file") do |o|
+    options[:output] = o
+  end
+
+  opts.on("--ignore-path PATH", "Lewati folder/file tertentu (pisahkan dengan koma)") do |p|
+    options[:ignore_paths] = p.split(',').map(&:strip)
+  end
+
+  opts.on("--exit-on-warn", "Keluar dengan kode 1 jika ditemukan kerentanan") do
+    options[:exit_on_warn] = true
+  end
+
+  opts.on("-v", "--version", "Tampilkan versi") do
+    puts "Bloodinary v1.0.0"
+    exit
+  end
+
+  opts.on("-h", "--help", "Tampilkan bantuan") do
+    puts opts
+    exit
+  end
+end.parse!
+
+path = ARGV[0] || '.'
+
+unless File.exist?(path)
+  puts "Error: Jalur '#{path}' tidak ditemukan."
+  exit 1
+end
+
+# Brand message
+if options[:format] == :text
+  puts "\n" + Rainbow(" Bloodinary ").black.bg(:red).bold + " Sedang memindai target: " + Rainbow(path).underline
+  puts Rainbow(" (Mengabaikan: #{options[:ignore_paths].join(', ')})").faint unless options[:ignore_paths].empty?
+end
+
+# SCAN
+begin
+  scanner = Bloodinary::Scanner.new
+  result = scanner.scan(path, options[:ignore_paths])
+  
+  # REPORT
+  if options[:output]
+    File.open(options[:output], 'w') do |f|
+      # Temporarily redirect stdout for the reporter
+      original_stdout = $stdout
+      $stdout = f
+      Bloodinary::Reporter.report(result, options[:format])
+      $stdout = original_stdout
+    end
+    puts "\n" + Rainbow(" Laporan berhasil disimpan ke: ").green + Rainbow(options[:output]).underline if options[:format] == :text
+  else
+    Bloodinary::Reporter.report(result, options[:format])
+  end
+
+  # EXIT STATUS
+  if options[:exit_on_warn] && !result[:findings].empty?
+    exit 1
+  end
+rescue Interrupt
+  puts "\n" + Rainbow("Pemindaian dibatalkan oleh pengguna.").yellow
+  exit 1
+rescue StandardError => e
+  # If format is JSON, we should probably output JSON error
+  if options[:format] == :json
+    puts ({ error: e.message }).to_json
+  else
+    puts "\n" + Rainbow("Terjadi kesalahan sistem: #{e.message}").red
+  end
+  exit 1
+end

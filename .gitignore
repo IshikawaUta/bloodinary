@@ -1,0 +1,37 @@
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Bundler
+.bundle/
+bin/bundle
+bin/bundle.standalone
+vendor/bundle
+
+# Environment
+.env
+
+# Testing artifacts
+test_report.txt
+test.json
+report.json
+results.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System
+.DS_Store
+Thumbs.db
